@@ -1,0 +1,24 @@
+{
+    "dependencies": [
+        {
+            "name": "kube-prometheus",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/coreos/prometheus-operator",
+                    "subdir": "contrib/kube-prometheus/jsonnet/kube-prometheus"
+                }
+            },
+            "version": "a24386e2d5e66de353cb0e939936041fa3977283"
+        },
+        {
+            "name": "grafana",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/gavinzhou/kubernetes-grafana",
+                    "subdir": "grafana"
+                }
+            },
+            "version": "master"
+        }
+    ]
+}
