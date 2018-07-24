@@ -11,7 +11,6 @@ jobs:
       - checkout
       - run:
           command: |
-            sudo apt -y install build-essential git
             git clone https://github.com/google/jsonnet.git
             cd jsonnet && make && sudo cp jsonnet /usr/local/bin/
       - run:
@@ -30,7 +29,7 @@ jobs:
           command: |
             # TODO: remove the --bootstrapper flag once this issue is solved: https://github.com/kubernetes/minikube/issues/2704
             sudo minikube config set WantReportErrorPrompt false
-            sudo -E minikube start --vm-driver=none --bootstrapper=localkube --kubernetes-version=${K8S_VERSION} --extra-config=apiserver.Authorization.Mode=RBAC
+            sudo -E minikube start --vm-driver=none --bootstrapper=localkube --kubernetes-version=${K8S_VERSION} --extra-config=kubelet.authentication-token-webhook=true --extra-config=kubelet.authorization-mode=Webhook --extra-config=scheduler.address=0.0.0.0 --extra-config=controller-manager.address=0.0.0.0
       - run:
           command: |
             JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until sudo kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
