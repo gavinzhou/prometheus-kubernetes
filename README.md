@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/gavinzhou/prometheus-kubernetes.svg?style=svg)](https://circleci.com/gh/gavinzhou/prometheus-kubernetes)
 # prometheus-kubernetes
 
 > Base from [contrib/kube-prometheus/](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)

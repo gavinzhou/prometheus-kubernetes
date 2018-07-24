@@ -46,5 +46,6 @@ jobs:
           command: |
             sleep 30
             kubectl apply -f manifests || true
+            sleep 60
             kubectl get po -n monitor
             
