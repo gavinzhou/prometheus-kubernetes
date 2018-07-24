@@ -9,8 +9,7 @@ jobs:
       - checkout
       - run:
           command: |
-            apt update -yqq
-            apt -y install build-essential git
+            sudo apt -y install build-essential git
             git clone https://github.com/google/jsonnet.git
             cd jsonnet && make && make install
       - run:
