@@ -9,6 +9,16 @@ jobs:
       - checkout
       - run:
           command: |
+            apt update -yqq
+            apt -y install build-essential git
+            git clone https://github.com/google/jsonnet.git
+            cd jsonnet && make && make install
+      - run:
+          command: |
+            go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+            go get github.com/brancz/gojsontoyaml      
+      - run:
+          command: |
             curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
       - run:
           command: |
@@ -33,14 +43,3 @@ jobs:
       - run:
           command: |
             sudo kubectl get deployment
-      - run:
-          command: |
-            apt update -yqq
-            apt -y install build-essential git
-            git clone https://github.com/google/jsonnet.git
-            cd jsonnet && make && make install
-            ./jsonnet
-      - run:
-          command: |
-            go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
-            go get github.com/brancz/gojsontoyaml
