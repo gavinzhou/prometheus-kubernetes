@@ -11,7 +11,7 @@ jobs:
           command: |
             sudo apt -y install build-essential git
             git clone https://github.com/google/jsonnet.git
-            cd jsonnet && make && make install
+            cd jsonnet && make && sudo cp jsonnet /usr/local/bin/
       - run:
           command: |
             go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
