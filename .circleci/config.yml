@@ -40,4 +40,11 @@ jobs:
           command: |
             jb install
             ./build.sh
-            sudo kubectl apply -f manifests
+            kubectl apply -f manifests || true
+      - run:
+          name: deploy manifests test
+          command: |
+            sleep 30
+            kubectl apply -f manifests || true
+            kuectl get po -n monitor
+            
