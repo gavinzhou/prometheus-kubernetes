@@ -116,7 +116,7 @@ kubectl apply -f manifests
 kubectl get po -n monitor -w
 ```
 
-The grafana definition is located in a different project  (https://github.com/gavinzhou/kubernetes-grafana) ,it fixed some bugs.
+The grafana definition is located in a different project [gavinzhou/kubernetes-grafana](https://github.com/gavinzhou/kubernetes-grafana) ,it fixed some bugs.
 
 ## Customization
 
