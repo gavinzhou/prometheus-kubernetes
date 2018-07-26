@@ -18,6 +18,16 @@ Components included in this package:
 
 This stack is meant for cluster monitoring, so it is pre-configured to collect metrics from all Kubernetes components. In addition to that it delivers a default set of dashboards and alerting rules. Many of the useful dashboards and alerts come from the [kubernetes-mixin project](https://github.com/kubernetes-monitoring/kubernetes-mixin), similar to this project it provides composable jsonnet as a library for users to customize to their needs.
 
+## Quickstart
+
+Although this project is intended to be used as a library, a compiled version of the Kubernetes manifests generated with this library is checked into this repository in order to try the content out quickly.
+
+Simply create the stack:
+
+```bash
+kubectl apply -f manifests
+```
+
 ## Usage
 
 The content of this project consists of a set of [jsonnet](http://jsonnet.org/) files making up a library to be consumed.
