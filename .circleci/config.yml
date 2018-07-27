@@ -44,8 +44,9 @@ jobs:
       - run:
           name: deploy manifests test
           command: |
+            # Need: wait running prometheus-operator, get some container
             sleep 30
-            kubectl apply -f manifests || true
+            kubectl apply -f manifests
             sleep 60
             kubectl get po -n monitor
             
