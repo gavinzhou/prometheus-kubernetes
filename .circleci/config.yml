@@ -39,7 +39,7 @@ jobs:
       - run:
           command: |
             jb install
-            ./build.sh
+            build-ci
             kubectl apply -f manifests || true
       - run:
           name: deploy manifests test

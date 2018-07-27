@@ -13,8 +13,7 @@ embedmd:
 	@echo -e "\033[1m>> Ensuring embedmd is installed\033[0m"
 	go get github.com/campoy/embedmd
 
-build:
-	rm -rf manifests && mkdir manifests
+build: remove
 	$(MAKE) compile
 
 compile:
@@ -27,3 +26,9 @@ jb:
 init:
 	rm -rvf vendor
 	jb install
+
+remove:
+	rm -rf manifests && mkdir manifests
+
+build-ci: remove
+	jsonnet -J vendor -m manifests -J . minikube-prometheus.jsonnet | xargs -I{} sh -c 'cat {} | gojsontoyaml > {}.yaml; rm -f {}' -- {}
