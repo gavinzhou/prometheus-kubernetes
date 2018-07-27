@@ -19,9 +19,11 @@ build: remove
 compile:
 	jsonnet -J vendor -m manifests -J . kube-prometheus.jsonnet | xargs -I{} sh -c 'cat {} | gojsontoyaml > {}.yaml; rm -f {}' -- {}
 
-jb:
+deps:
 	@echo -e "\033[1m>> Ensuring jb (jsonnet-bundler) is installed\033[0m"
 	go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+	@echo -e "\033[1m>> Ensuring gojsontoyaml (jsonnet-bundler) is installed\033[0m"
+	go get github.com/brancz/gojsontoyaml
 
 init:
 	rm -rvf vendor
