@@ -47,6 +47,9 @@ jobs:
             # Need: wait running prometheus-operator, get some container
             sleep 30
             kubectl apply -f manifests
+      - run:
+          name: show running pods
+          command: |
             sleep 60
             kubectl get po -n monitor
             
