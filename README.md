@@ -110,13 +110,19 @@ This script reads each key of the generated json and uses that as the file name,
 kubectl apply -f manifests
 ```
 
-### Check running Prometheus pod
+## Check running Prometheus pod
 
 ```sh
 kubectl get po -n monitor -w
 ```
 
 The grafana definition is located in a different project [gavinzhou/kubernetes-grafana](https://github.com/gavinzhou/kubernetes-grafana) ,it fixed some bugs.
+
+## Show grafana with port-forward
+
+```sh
+kubectl port-forward $(kubectl get po -o jsonpath="{range .items[*]}{@.metadata.name}{end}" -l app=grafana -n monitor) -n monitor 3000
+```
 
 ## Customization
 
