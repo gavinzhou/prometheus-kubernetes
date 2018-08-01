@@ -121,7 +121,7 @@ The grafana definition is located in a different project [gavinzhou/kubernetes-g
 ## Show grafana with port-forward
 
 ```sh
-kubectl port-forward $(kubectl get po -o jsonpath="{range .items[*]}{@.metadata.name}{end}" -l app=grafana -n monitor) -n monitor 3000
+kubectl port-forward $(kubectl get pod -l app=grafana -n monitor -o 'jsonpath={.items[0].metadata.name}') -n monitor 3000
 ```
 
 ## Customization
