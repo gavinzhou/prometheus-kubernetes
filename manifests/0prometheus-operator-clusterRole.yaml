@@ -44,11 +44,13 @@ rules:
   - ""
   resources:
   - services
+  - services/finalizers
   - endpoints
   verbs:
   - get
   - create
   - update
+  - delete
 - apiGroups:
   - ""
   resources:
@@ -61,5 +63,6 @@ rules:
   resources:
   - namespaces
   verbs:
+  - get
   - list
   - watch

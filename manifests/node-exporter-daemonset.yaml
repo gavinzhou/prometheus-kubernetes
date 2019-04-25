@@ -16,14 +16,17 @@ spec:
     spec:
       containers:
       - args:
-        - --web.listen-address=127.0.0.1:9101
+        - --web.listen-address=127.0.0.1:9100
         - --path.procfs=/host/proc
         - --path.sysfs=/host/sys
-        image: quay.io/prometheus/node-exporter:v0.15.2
+        - --path.rootfs=/host/root
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
+        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+        image: quay.io/prometheus/node-exporter:v0.17.0
         name: node-exporter
         resources:
           limits:
-            cpu: 102m
+            cpu: 250m
             memory: 180Mi
           requests:
             cpu: 102m
@@ -35,10 +38,21 @@ spec:
         - mountPath: /host/sys
           name: sys
           readOnly: false
+        - mountPath: /host/root
+          mountPropagation: HostToContainer
+          name: root
+          readOnly: true
       - args:
-        - --secure-listen-address=:9100
-        - --upstream=http://127.0.0.1:9101/
-        image: quay.io/coreos/kube-rbac-proxy:v0.3.1
+        - --logtostderr
+        - --secure-listen-address=$(IP):9100
+        - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+        - --upstream=http://127.0.0.1:9100/
+        env:
+        - name: IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        image: quay.io/coreos/kube-rbac-proxy:v0.4.1
         name: kube-rbac-proxy
         ports:
         - containerPort: 9100
@@ -60,8 +74,10 @@ spec:
         runAsUser: 65534
       serviceAccountName: node-exporter
       tolerations:
+      - effect: NoExecute
+        operator: Exists
       - effect: NoSchedule
-        key: node-role.kubernetes.io/master
+        operator: Exists
       volumes:
       - hostPath:
           path: /proc
@@ -69,3 +85,6 @@ spec:
       - hostPath:
           path: /sys
         name: sys
+      - hostPath:
+          path: /
+        name: root
