@@ -9,16 +9,6 @@
                 }
             },
             "version": "master"
-        },
-        {
-            "name": "grafana",
-            "source": {
-                "git": {
-                    "remote": "https://github.com/gavinzhou/kubernetes-grafana",
-                    "subdir": "grafana"
-                }
-            },
-            "version": "master"
         }
     ]
 }
