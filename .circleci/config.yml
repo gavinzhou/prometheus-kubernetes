@@ -22,7 +22,6 @@ jobs:
       - run:
           command: |
             make init
-            jb install https://github.com/gavinzhou/kubernetes-grafana
             make build         
       - run:
           name: setup kubectl
