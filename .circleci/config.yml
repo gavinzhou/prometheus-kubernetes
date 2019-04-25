@@ -11,8 +11,10 @@ jobs:
       - checkout
       - run:
           command: |
+            sudo apt-get update -yq
+            sudo apt-get install clang-3.5 -yq
             git clone https://github.com/google/jsonnet.git
-            cd jsonnet && make && sudo cp jsonnet /usr/local/bin/
+            cd jsonnet && make CC=clang CXX=clang++-3.5 && sudo cp jsonnet /usr/local/bin/
       - run:
           command: |
             go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
