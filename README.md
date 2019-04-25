@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/gavinzhou/prometheus-kubernetes.svg?style=svg)](https://circleci.com/gh/gavinzhou/prometheus-kubernetes)
 # prometheus-kubernetes
 
-> Base from [contrib/kube-prometheus/](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)
+> Base from [contrib/kube-prometheus/](https://github.com/coreos/kube-prometheus)
 
 This repository collects Kubernetes manifests, [Grafana](http://grafana.com/) dashboards, and [Prometheus rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/) combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with [Prometheus](https://prometheus.io/) using the Prometheus Operator.
 
