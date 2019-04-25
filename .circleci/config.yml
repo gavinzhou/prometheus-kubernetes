@@ -18,7 +18,11 @@ jobs:
       - run:
           command: |
             go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
-            go get github.com/brancz/gojsontoyaml      
+            go get github.com/brancz/gojsontoyaml   
+      - run:
+          command: |
+            make init
+            make build         
       - run:
           name: setup kubectl
           command: |
@@ -40,8 +44,8 @@ jobs:
             sudo kubectl cluster-info
       - run:
           command: |
-            jb install
-            make build-ci
+            # jb install
+            # make build-ci
             kubectl apply -f manifests || true
       - run:
           name: deploy manifests test
